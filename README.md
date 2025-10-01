@@ -46,3 +46,9 @@ cp env_example .env
 ```bash
 npm run dev
 ```
+
+### OBS: Verificar atualizações no projeto
+
+```bash
+git pull
+```
