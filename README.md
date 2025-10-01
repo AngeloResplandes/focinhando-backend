@@ -33,7 +33,15 @@ cd focinhando-backend
 npm install
 ```
 
-### 3. Inicie o servidor (desenvolvimento)
+### 3. Copie e renomeia o env_example
+
+```bash
+cp env_example .env
+```
+
+`Pode setar qualquer número em 'PORT=...'`
+
+### 4. Inicie o servidor (desenvolvimento)
 
 ```bash
 npm run dev
