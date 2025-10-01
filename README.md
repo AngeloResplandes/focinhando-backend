@@ -23,7 +23,7 @@ interface do usuário através de uma API.
 ### 1. Clone o repositório
 
 ```bash
-git clone ...
+git clone https://github.com/AngeloResplandes/focinhando-backend.git
 cd focinhando-backend
 ```
 
