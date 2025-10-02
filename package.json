@@ -5,11 +5,16 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch --env-file=.env ./src/server.ts"
+    "dev": "tsx watch --env-file=.env ./src/server.ts",
+    "init": "npx prisma init",
+    "generate": "npx prisma generate",
+    "migrate": "npx prisma migrate",
+    "migrate dev": "npx prisma migrate dev"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "^6.16.3",
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "express": "^5.1.0",
