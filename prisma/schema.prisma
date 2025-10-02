@@ -1,0 +1,82 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int             @id @default(autoincrement())
+  name       String
+  email      String          @unique
+  password   String
+  token      String?
+  role       String
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+  complement UserComplement?
+}
+
+model UserComplement {
+  id           Int      @id @default(autoincrement())
+  phoneNumber  String
+  city         String
+  state        String
+  dateOfBirth  DateTime
+  adoptedPet   Int
+  availablePet Int
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  userId       Int      @unique
+  user         User     @relation(fields: [userId], references: [id])
+  pet          Pet[]
+}
+
+model Pet {
+  id               Int            @id @default(autoincrement())
+  name             String
+  img              String
+  age              DateTime
+  city             String
+  state            String
+  sex              String
+  vaccinated       Boolean
+  about            String
+  species          String
+  race             String
+  weight           Float
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  userComplementId Int
+  userComplement   UserComplement @relation(fields: [userComplementId], references: [id])
+}
+
+model Publication {
+  id        Int      @id @default(autoincrement())
+  title     String
+  topic     String
+  img       String
+  text      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Contact {
+  id          Int      @id @default(autoincrement())
+  fullName    String
+  email       String
+  phoneNumber String
+  subject     String
+  message     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
