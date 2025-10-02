@@ -32,6 +32,101 @@ das informações.
   { "pong": true }
   ```
 
+## User
+
+### `POST /user/register`
+- **Description:** Registrar um novo usuário.
+- **Auth:** None
+- **Body:**
+  ```json
+  {
+    "name": "User Name",
+    "email": "user@email.com",
+    "password": "password123"
+  }
+  ```
+- **Response:**
+  ```json
+  "error": null,
+    "user": {
+        "id": 1,
+        "name": "User Name",
+        "email": "user@email.com",
+        "role": "member",
+        "createdAt": "2025-10-02T21:26:20.191Z",
+        "updatedAt": "2025-10-02T21:26:20.191Z"
+    }
+  ```
+
+### `POST /user/login`
+- **Description:** Fazer login e receber um token.
+- **Auth:** None
+- **Body:**
+  ```json
+  {
+    "email": "user@email.com",
+    "password": "password123"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "error": null,
+    "token": "<uuid>"
+  }
+  ```
+
+### `GET /user/complement`
+- **Description:** Pega o complementodo usuário logado.
+- **Auth:** Yes (Bearer token)
+- **Response:**
+  ```json
+  {
+    "error": null,
+    "complement": {
+      "id": 1,
+      "phoneNumber": "(00)12345-6789",
+      "city": "Marabá",
+      "state": "Pará",
+      "dateOfBirth": "01/01/2000",
+      "adoptedPet": 0,
+      "availablePet": 0,
+      "createdAt": "2025-10-02T12:30:00.000Z",
+      "updatedAt": "2025-10-02T12:30:00.000Z"
+    }
+  }
+  ```
+
+### `POST /user/complement`
+- **Description:** Adiciona um complemento para o usuário logado.
+- **Auth:** Yes (Bearer token)
+- **Body:**
+  ```json
+  {
+    "phoneNumber": "(94) 98169-1243",
+    "city": "Marabá",
+    "state": "Pará",
+    "dateOfBirth": "2000-01-01"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "error": null,
+    "complement": {
+      "id": 1,
+      "phoneNumber": "(00) 12345-6789",
+      "city": "Marabá",
+      "state": "Pará",
+      "dateOfBirth": "2000-01-01",
+      "adoptedPet": 0,
+      "availablePet": 0,
+      "createdAt": "2025-10-02T12:30:00.000Z",
+      "updatedAt": "2025-10-02T12:30:00.000Z"
+    }
+  }
+  ```
+
 ## Contact
 
 ### `POST /contact/register`
@@ -44,8 +139,7 @@ das informações.
     "email": "name@email.com",
     "phoneNumber": "(00)12345-6789",
     "subject": "Select a subject",
-    "message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-      Praesent volutpat orci quis tortor feugiat fermentum."
+    "message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
    }
   ```
 - **Response:**
@@ -58,10 +152,9 @@ das informações.
       "email": "name@email.com",
       "phoneNumber": "(00)12345-6789",
       "subject": "Select a subject",
-      "message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-        Praesent volutpat orci quis tortor feugiat fermentum.",
+      "message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
       "createdAt": "2025-10-02T12:30:00.000Z",
-      "updateAt": "2025-10-02T12:30:00.000Z"
+      "updatedAt": "2025-10-02T12:30:00.000Z"
     }
   }
   ```
@@ -82,7 +175,7 @@ das informações.
         "subject": "Select a subject",
         "message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         "createdAt": "2025-10-02T12:30:00.000Z",
-        "updateAt": "2025-10-02T12:30:00.000Z"
+        "updatedAt": "2025-10-02T12:30:00.000Z"
       },
       {
         "id": 2,
@@ -92,7 +185,7 @@ das informações.
         "subject": "Another subject",
         "message": "Praesent volutpat orci quis tortor feugiat fermentum.",
         "createdAt": "2025-10-02T12:30:00.000Z",
-        "updateAt": "2025-10-02T12:30:00.000Z"
+        "updatedAt": "2025-10-02T12:30:00.000Z"
       }
       // ... restante dos contatos
     ]
@@ -120,7 +213,8 @@ das informações.
         "phoneNumber": "(00)12345-6789",
         "subject": "Select a subject",
         "message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        "createdAt": "2025-10-02T12:30:00.000Z"
+        "createdAt": "2025-10-02T12:30:00.000Z",
+        "updatedAt": "2025-10-02T12:30:00.000Z"
       }
         // ... mais 9 contatos
     ],
@@ -410,103 +504,6 @@ das informações.
   {
     "error": null,
     "url": "https://checkout.stripe.com/..."
-  }
-  ```
-  
-## User
-
-### `POST /user/register`
-- **Description:** Registrar um novo usuário.
-- **Auth:** None
-- **Body:**
-  ```json
-  {
-    "name": "User Name",
-    "email": "user@email.com",
-    "password": "password123"
-  }
-  ```
-- **Response:**
-  ```json
-  {
-    "error": null,
-    "user": {
-      "id": 1,
-      "name": "User Name",
-      "email": "user@email.com"
-    }
-  }
-  ```
-
-### `POST /user/login`
-- **Description:** Login and receive a token.
-- **Auth:** None
-- **Body:**
-  ```json
-  {
-    "email": "user@email.com",
-    "password": "password123"
-  }
-  ```
-- **Response:**
-  ```json
-  {
-    "error": null,
-    "token": "<uuid>"
-  }
-  ```
-
-### `GET /user/addresses`
-- **Description:** Get all addresses for the logged-in user.
-- **Auth:** Yes (Bearer token)
-- **Response:**
-  ```json
-  {
-    "error": null,
-    "addresses": [
-      {
-        "id": 1,
-        "zipcode": "12345-678",
-        "street": "Street Name",
-        "number": "123",
-        "city": "City",
-        "state": "State",
-        "country": "Country",
-        "complement": "Apt 1"
-      }
-    ]
-  }
-  ```
-
-### `POST /user/addresses`
-- **Description:** Add a new address for the logged-in user.
-- **Auth:** Yes (Bearer token)
-- **Body:**
-  ```json
-  {
-    "zipcode": "12345-678",
-    "street": "Street Name",
-    "number": "123",
-    "city": "City",
-    "state": "State",
-    "country": "Country",
-    "complement": "Apt 1"
-  }
-  ```
-- **Response:**
-  ```json
-  {
-    "error": null,
-    "address": {
-      "id": 1,
-      "zipcode": "12345-678",
-      "street": "Street Name",
-      "number": "123",
-      "city": "City",
-      "state": "State",
-      "country": "Country",
-      "complement": "Apt 1"
-    }
   }
   ```
 
