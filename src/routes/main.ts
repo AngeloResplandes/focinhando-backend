@@ -21,3 +21,4 @@ routes.get("/ping", (req, res) => {
 
 routes.post("/contact/register", contactController.register);
 routes.post("/user/register", userController.register);
+routes.post("/user/login", userController.login);
