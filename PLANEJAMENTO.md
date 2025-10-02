@@ -1,4 +1,4 @@
-![Logo Focinhando](https://i.imgur.com/uPUVmWW.png)
+ ![Logo Focinhando](https://i.imgur.com/uPUVmWW.png)
 
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=plastic&logo=typescript&logoColor=white)
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=plastic&logo=nodedotjs&logoColor=white)
@@ -114,7 +114,7 @@ das informações.
     "error": null,
     "contacts": [
       {
-        "id": "0",
+        "id": "1",
         "fullName": "Full Name 1",
         "email": "name1@email.com",
         "phoneNumber": "(00)12345-6789",
