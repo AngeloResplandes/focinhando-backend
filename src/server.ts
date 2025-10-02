@@ -19,6 +19,8 @@ server.use((err: any, req: Request, res: Response, next: NextFunction) => {
 
 // Configuração da porta
 const port = process.env.PORT || "4000";
+const blue = '\x1b[34m';
+const reset = '\x1b[0m';
 server.listen(port, () => {
-    console.log(`Server running successfully at http://localhost:${port}`);
+    console.log(`Servidor rodando com sucesso em ${blue}http://localhost:${port}${reset}`);
 });
