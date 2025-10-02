@@ -10,7 +10,7 @@ export const createContact = async (
     const contact = await prisma.contact.create({
         data: {
             fullName,
-            email: email.toLocaleLowerCase(),
+            email: email.toLowerCase(),
             phoneNumber,
             subject,
             message

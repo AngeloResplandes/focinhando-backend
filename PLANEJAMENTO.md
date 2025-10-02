@@ -17,11 +17,9 @@ das informações.
 ## Sumário
 - [Geral](#geral)
 - [Contact](#contact)
-- [Products](#products)
-- [Categories](#categories)
-- [Cart](#cart)
+- [Pet](#pet)
+- [Publication](#publication)
 - [User](#user)
-- [Orders](#orders)
 - [Webhooks](#webhooks)
 
 ## Geral
@@ -136,6 +134,25 @@ das informações.
   ```
 
 ## Pet
+
+### `POST /pet/register`
+- **Description:** Registrar um novo pet.
+- **Auth:** None
+- **Response:**
+  ```json
+  {
+    "error": null,
+    "products": [
+      {
+        "id": 1,
+        "label": "Product Name",
+        "price": 99.99,
+        "image": "media/products/<filename>",
+        "liked": false
+      }
+    ]
+  }
+  ```
 
 ### `GET /pet`
 - **Description:** Listar produtos com filtros opcionais.
@@ -395,13 +412,11 @@ das informações.
     "url": "https://checkout.stripe.com/..."
   }
   ```
-
----
-
+  
 ## User
 
 ### `POST /user/register`
-- **Description:** Register a new user.
+- **Description:** Registrar um novo usuário.
 - **Auth:** None
 - **Body:**
   ```json
@@ -494,87 +509,6 @@ das informações.
     }
   }
   ```
-
----
-
-## Orders
-
-### `GET /orders`
-- **Description:** List all orders for the logged-in user.
-- **Auth:** Yes (Bearer token)
-- **Response:**
-  ```json
-  {
-    "error": null,
-    "orders": [
-      {
-        "id": 1,
-        "status": "pending",
-        "total": 199.99,
-        "createdAt": "2024-07-24T18:49:43.000Z"
-      }
-    ]
-  }
-  ```
-
-### `GET /orders/:id`
-- **Description:** Get details of a specific order by ID for the logged-in user.
-- **Auth:** Yes (Bearer token)
-- **Params:**
-  | Name | Type             | Required |
-  | ---- | ---------------- | -------- |
-  | id   | string (numeric) | Yes      |
-- **Response:**
-  ```json
-  {
-    "error": null,
-    "order": {
-      "id": 1,
-      "status": "pending",
-      "total": 199.99,
-      "shippingCost": 7,
-      "shippingDays": 3,
-      "shippingZipcode": "12345-678",
-      "shippingStreet": "Street Name",
-      "shippingNumber": "123",
-      "shippingCity": "City",
-      "shippingState": "State",
-      "shippingCountry": "Country",
-      "shippingComplement": "Apt 1",
-      "createdAt": "2024-07-24T18:49:43.000Z",
-      "orderItems": [
-        {
-          "id": 1,
-          "quantity": 2,
-          "price": 99.99,
-          "product": {
-            "id": 1,
-            "label": "Product Name",
-            "price": 99.99,
-            "image": "media/products/<filename>"
-          }
-        }
-      ]
-    }
-  }
-  ```
-
-### `GET /orders/session`
-- **Description:** Get order ID by Stripe session ID.
-- **Auth:** None
-- **Query:**
-  | Name       | Type   | Required | Description                |
-  | ---------- | ------ | -------- | -------------------------- |
-  | session_id | string | Yes      | Stripe checkout session ID |
-- **Response:**
-  ```json
-  {
-    "error": null,
-    "orderId": 123
-  }
-  ```
-
----
 
 ## Webhooks
 

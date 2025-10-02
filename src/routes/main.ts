@@ -1,5 +1,6 @@
 import { Router } from "express";
 import * as contactController from "../controllers/contact";
+import * as userController from "../controllers/user";
 
 export const routes = Router();
 
@@ -19,3 +20,4 @@ routes.get("/ping", (req, res) => {
 });
 
 routes.post("/contact/register", contactController.register);
+routes.post("/user/register", userController.register);
