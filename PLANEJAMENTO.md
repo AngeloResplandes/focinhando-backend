@@ -47,7 +47,8 @@ das informações.
   ```
 - **Response:**
   ```json
-  "error": null,
+  {
+   "error": null,
     "user": {
         "id": 1,
         "name": "User Name",
@@ -56,6 +57,7 @@ das informações.
         "createdAt": "2025-10-02T21:26:20.191Z",
         "updatedAt": "2025-10-02T21:26:20.191Z"
     }
+  }
   ```
 
 ### `POST /user/login`
