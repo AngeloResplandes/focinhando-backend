@@ -161,7 +161,7 @@ das informações.
   }
   ```
 
-### `GET /contact`
+### `GET /contact/all-contacts`
 - **Descrição:** Listar todos os contatos registrados.
 - **Auth:** Yes (Bearer token)
 - **Response:**
