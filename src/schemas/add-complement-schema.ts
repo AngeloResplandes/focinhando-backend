@@ -1,6 +1,9 @@
 import z from "zod";
 
 export const addComplementSchema = z.object({
+    img: z.url({
+        message: "Por favor, insira uma URL de imagem válida."
+    }),
     phoneNumber: z.string().regex(/^\(?\d{2}\)?[\s-]?\d{4,5}-?\d{4}$/, {
         message: 'Formato de telefone inválido. Use (XX) XXXXX-XXXX.'
     }),
