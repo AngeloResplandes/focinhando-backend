@@ -43,10 +43,7 @@ export const logUser = async (email: string, password: string) => {
     const token = v4();
     await prisma.user.update({
         where: { id: user.id },
-        data: {
-            token,
-            tokenCreatedAt: new Date()
-        }
+        data: { token }
     });
     return token;
 }
@@ -55,20 +52,7 @@ export const getUserByToken = async (token: string) => {
     const user = await prisma.user.findFirst({
         where: { token }
     });
-    if (!user || !user.tokenCreatedAt) return null;
-
-    const now = new Date();
-    const diffMs = now.getTime() - user.tokenCreatedAt.getTime();
-    const diffMinutes = diffMs / (1000 * 60);
-
-    if (diffMinutes > 10) {
-        await prisma.user.update({
-            where: { id: user.id },
-            data: { token: null, tokenCreatedAt: null }
-        });
-        return null;
-    }
-
+    if (!user) return null;
     return user.id;
 }
 
