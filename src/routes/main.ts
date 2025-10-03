@@ -17,10 +17,6 @@ routes.get("/", (req, res) => {
     });
 });
 
-routes.get("/ping", (req, res) => {
-    res.json({ pong: true });
-});
-
 routes.post("/contact/register", authMiddleware, contactController.register);
 routes.get("/contact/all-contacts", authMiddleware, contactController.getContact);
 routes.get("/contact", authMiddleware, contactController.getContactsPaginated);

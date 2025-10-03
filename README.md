@@ -102,27 +102,6 @@ npm run dev
   }
   ```
 
-### `GET /user/complement`
-- **Description:** Pega o complementodo usuário logado.
-- **Auth:** Yes (Bearer token)
-- **Response:**
-  ```json
-  {
-    "error": null,
-    "complement": {
-      "id": 1,
-      "phoneNumber": "(00)12345-6789",
-      "city": "Marabá",
-      "state": "Pará",
-      "dateOfBirth": "01/01/2000",
-      "adoptedPet": 0,
-      "availablePet": 0,
-      "createdAt": "2025-10-02T12:30:00.000Z",
-      "updatedAt": "2025-10-02T12:30:00.000Z"
-    }
-  }
-  ```
-
 ### `POST /user/complement`
 - **Description:** Adiciona um complemento para o usuário logado.
 - **Auth:** Yes (Bearer token)
@@ -145,6 +124,27 @@ npm run dev
       "city": "Marabá",
       "state": "Pará",
       "dateOfBirth": "2000-01-01",
+      "adoptedPet": 0,
+      "availablePet": 0,
+      "createdAt": "2025-10-02T12:30:00.000Z",
+      "updatedAt": "2025-10-02T12:30:00.000Z"
+    }
+  }
+  ```
+
+### `GET /user/complement`
+- **Description:** Pega o complemento do usuário logado.
+- **Auth:** Yes (Bearer token)
+- **Response:**
+  ```json
+  {
+    "error": null,
+    "complement": {
+      "id": 1,
+      "phoneNumber": "(00)12345-6789",
+      "city": "Marabá",
+      "state": "Pará",
+      "dateOfBirth": "01/01/2000",
       "adoptedPet": 0,
       "availablePet": 0,
       "createdAt": "2025-10-02T12:30:00.000Z",
@@ -384,7 +384,7 @@ npm run dev
   }
   ```
 
-### `GET /pet/:species`
+### `GET /pet/:specie`
 - **Description:** Buscar pets relacionados da mesma espécie.
 - **Auth:** None
 - **Params:**

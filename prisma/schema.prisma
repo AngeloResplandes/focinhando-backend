@@ -52,7 +52,7 @@ model Pet {
   sex              String
   vaccinated       Boolean
   about            String
-  species          String
+  specie           String
   race             String
   weight           Float
   createdAt        DateTime       @default(now())
