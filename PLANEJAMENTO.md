@@ -15,12 +15,36 @@ candidaturas de adoção, publicações de informações no blog e pela seguran�
 das informações.
 
 ## Sumário
+- [Como iniciar o projeto?](#como-iniciar-o-projeto)
 - [Geral](#geral)
+- [User](#user)
 - [Contact](#contact)
 - [Pet](#pet)
 - [Publication](#publication)
-- [User](#user)
 - [Webhooks](#webhooks)
+
+## Como iniciar o projeto?
+
+Após clonar o repositório, entre e instale as dependências.
+```bash
+npm install
+```
+
+Copie e renomeia o `env_example` para `.env`.
+```bash
+cp env_example .env
+```
+`Defina alguma porta disponivel em 'PORT=...'`
+
+Gere o Prisma Client e crie uma base de dados.
+```bash
+npm run migrate dev
+```
+
+Inicie o servidor (desenvolvimento)
+```bash
+npm run dev
+```
 
 ## Geral
 
@@ -189,13 +213,12 @@ das informações.
         "createdAt": "2025-10-02T12:30:00.000Z",
         "updatedAt": "2025-10-02T12:30:00.000Z"
       }
-      // ... restante dos contatos
     ]
   }
   ```
 
 ### `GET /contact (com Paginação)`
-- **Descrição:** Obter listar paginada de contatos.
+- **Descrição:** Obter lista paginada de contatos.
 - **Auth:** Yes (Bearer token)
 - **Exemplo de URL:** `https://api.example.com/contact?page=1&limit=10`
 - **Query Parameters:**
@@ -217,8 +240,17 @@ das informações.
         "message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         "createdAt": "2025-10-02T12:30:00.000Z",
         "updatedAt": "2025-10-02T12:30:00.000Z"
+      },
+      {
+        "id": 2,
+        "fullName": "Full Name 2",
+        "email": "name2@email.com",
+        "phoneNumber": "(11)98765-4321",
+        "subject": "Another subject",
+        "message": "Praesent volutpat orci quis tortor feugiat fermentum.",
+        "createdAt": "2025-10-02T12:30:00.000Z",
+        "updatedAt": "2025-10-02T12:30:00.000Z"
       }
-        // ... mais 9 contatos
     ],
     "pagination": {
       "totalContacts": 100,
@@ -226,6 +258,56 @@ das informações.
       "currentPage": 1,
       "limit": 10
     }
+  }
+  ```
+
+## Publication
+
+### `POST /pet/register`
+- **Description:** Registrar uma nova publicação.
+- **Auth:** Yes (Bearer token)
+- **Body:**
+  ```json
+  {
+    "title": "Como preparar sua casa para receber um novo pet",
+    "topic": "Dicas",
+    "img": "blog.webp",
+    "text": "Receber um novo pet em casa é uma experiência maravilhosa, mas requer alguns preparativos importantes. Aqui estão as principais dicas para garantir que seu novo amigo se sinta seguro e confortável."
+  }
+  ```
+- **Body:**
+```json
+  {
+    "error": null,
+    "publication": {
+        "id": 1,
+        "title": "Como preparar sua casa para receber um novo pet",
+        "topic": "Dicas",
+        "img": "http://localhost:4444/media/publications/blog.webp",
+        "text": "Receber um novo pet em casa é uma experiência maravilhosa, mas requer alguns preparativos importantes. Aqui estão as principais dicas para garantir que seu novo amigo se sinta seguro e confortável.",
+        "createdAt": "2025-10-03T16:28:17.954Z",
+        "updatedAt": "2025-10-03T16:28:17.954Z"
+    }
+  }
+```
+
+### `GET /publication/all-publications`
+- **Descrição:** Obter lista de todas as publicações.
+- **Auth:** None
+  ```json
+  {
+    "error": null,
+    "publication": [
+      {
+          "id": 1,
+          "title": "Como preparar sua casa para receber um novo pet",
+          "topic": "Dicas",
+          "img": "http://localhost:4444/media/publications/blog.webp",
+          "text": "Receber um novo pet em casa é uma experiência maravilhosa, mas requer alguns preparativos importantes. Aqui estão as principais dicas para garantir que seu novo amigo se sinta seguro e confortável.",
+          "createdAt": "2025-10-03T16:26:13.534Z",
+          "updatedAt": "2025-10-03T16:26:13.534Z"
+      }
+    ]
   }
   ```
 
@@ -321,194 +403,6 @@ das informações.
   }
   ```
 
-## Banners
-
-### `GET /banners`
-- **Description:** Get all banners.
-- **Auth:** None
-- **Response:**
-  ```json
-  {
-    "error": null,
-    "banners": [
-      {
-        "img": "media/banners/<filename>",
-        "link": "<url>"
-      }
-    ]
-  }
-  ```
-
----
-
-## Products
-
-### `GET /products`
-- **Description:** List products with optional filters.
-- **Auth:** None
-- **Query Parameters:**
-  | Name     | Type   | Required | Description                      |
-  | -------- | ------ | -------- | -------------------------------- |
-  | metadata | string | No       | JSON string of metadata filters  |
-  | orderBy  | string | No       | "views", "selling", or "price"   |
-  | limit    | string | No       | Max number of products to return |
-- **Response:**
-  ```json
-  {
-    "error": null,
-    "products": [
-      {
-        "id": 1,
-        "label": "Product Name",
-        "price": 99.99,
-        "image": "media/products/<filename>",
-        "liked": false
-      }
-    ]
-  }
-  ```
-
-### `GET /product/:id`
-- **Description:** Get a single product by ID.
-- **Auth:** None
-- **Params:**
-  | Name | Type             | Required |
-  | ---- | ---------------- | -------- |
-  | id   | string (numeric) | Yes      |
-- **Response:**
-  ```json
-  {
-    "error": null,
-    "product": {
-      "id": 1,
-      "label": "Product Name",
-      "price": 99.99,
-      "description": "...",
-      "categoryId": 1,
-      "images": ["media/products/<filename>"]
-    },
-    "category": {
-      "id": 1,
-      "name": "Category Name",
-      "slug": "category-slug"
-    }
-  }
-  ```
-
-### `GET /product/:id/related`
-- **Description:** Get related products from the same category.
-- **Auth:** None
-- **Params:**
-  | Name | Type             | Required |
-  | ---- | ---------------- | -------- |
-  | id   | string (numeric) | Yes      |
-- **Query:**
-  | Name  | Type             | Required |
-  | ----- | ---------------- | -------- |
-  | limit | string (numeric) | No       |
-- **Response:**
-  ```json
-  {
-    "error": null,
-    "products": [ ... ]
-  }
-  ```
-
----
-
-## Categories
-
-### `GET /category/:slug/metadata`
-- **Description:** Get category and its metadata by slug.
-- **Auth:** None
-- **Params:**
-  | Name | Type   | Required |
-  | ---- | ------ | -------- |
-  | slug | string | Yes      |
-- **Response:**
-  ```json
-  {
-    "error": null,
-    "category": {
-      "id": 1,
-      "name": "Category Name",
-      "slug": "category-slug"
-    },
-    "metadata": [
-      {
-        "id": "meta_id",
-        "name": "Meta Name",
-        "values": [
-          { "id": "value_id", "label": "Value Label" }
-        ]
-      }
-    ]
-  }
-  ```
-
----
-
-## Cart
-
-### `POST /cart/mount`
-- **Description:** Get product details for a list of product IDs.
-- **Auth:** None
-- **Body:**
-  ```json
-  { "ids": [1, 2, 3] }
-  ```
-- **Response:**
-  ```json
-  {
-    "error": null,
-    "products": [
-      {
-        "id": 1,
-        "label": "Product Name",
-        "price": 99.99,
-        "image": "media/products/<filename>"
-      }
-    ]
-  }
-  ```
-
-### `GET /cart/shipping`
-- **Description:** Calculate shipping cost and days for a zipcode.
-- **Auth:** None
-- **Query:**
-  | Name    | Type   | Required |
-  | ------- | ------ | -------- |
-  | zipcode | string | Yes      |
-- **Response:**
-  ```json
-  {
-    "error": null,
-    "zipcode": "12345-678",
-    "cost": 7,
-    "days": 3
-  }
-  ```
-
-### `POST /cart/finish`
-- **Description:** Finish the cart and create an order (returns Stripe checkout URL).
-- **Auth:** Yes (Bearer token)
-- **Body:**
-  ```json
-  {
-    "cart": [
-      { "productId": 1, "quantity": 2 }
-    ],
-    "addressId": 1
-  }
-  ```
-- **Response:**
-  ```json
-  {
-    "error": null,
-    "url": "https://checkout.stripe.com/..."
-  }
-  ```
-
 ## Webhooks
 
 ### `POST /webhook/stripe`
@@ -525,7 +419,6 @@ das informações.
   - `expired` - Checkout session expired
   - `failed` - Payment failed
 
----
 
 ## Authentication
 
