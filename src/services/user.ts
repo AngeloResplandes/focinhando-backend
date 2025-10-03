@@ -1,6 +1,7 @@
 import { compare, hash } from "bcryptjs";
 import { prisma } from "../libs/prisma"
 import { v4 } from "uuid";
+import { Complement } from "../types/complement";
 
 export const createUser = async (
     name: string,
@@ -42,7 +43,60 @@ export const logUser = async (email: string, password: string) => {
     const token = v4();
     await prisma.user.update({
         where: { id: user.id },
-        data: { token }
+        data: {
+            token,
+            tokenCreatedAt: new Date()
+        }
     });
     return token;
+}
+
+export const getUserByToken = async (token: string) => {
+    const user = await prisma.user.findFirst({
+        where: { token }
+    });
+    if (!user || !user.tokenCreatedAt) return null;
+
+    const now = new Date();
+    const diffMs = now.getTime() - user.tokenCreatedAt.getTime();
+    const diffMinutes = diffMs / (1000 * 60);
+
+    if (diffMinutes > 10) {
+        await prisma.user.update({
+            where: { id: user.id },
+            data: { token: null, tokenCreatedAt: null }
+        });
+        return null;
+    }
+
+    return user.id;
+}
+
+export const createComplement = async (userId: number, complement: Complement) => {
+    return await prisma.userComplement.create({
+        data: {
+            ...complement,
+            userId,
+            adoptedPet: 0,
+            availablePet: 0
+        }
+    });
+}
+
+export const getComplementFromUserId = async (userId: number) => {
+    return await prisma.userComplement.findFirst({
+        where: { userId },
+        select: {
+            id: true,
+            img: true,
+            phoneNumber: true,
+            city: true,
+            state: true,
+            dateOfBirth: true,
+            adoptedPet: true,
+            availablePet: true,
+            createdAt: true,
+            updatedAt: true,
+        }
+    });
 }

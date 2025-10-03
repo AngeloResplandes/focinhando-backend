@@ -1,6 +1,7 @@
 import { Router } from "express";
 import * as contactController from "../controllers/contact";
 import * as userController from "../controllers/user";
+import { authMiddleware } from "../middleware/auth";
 
 export const routes = Router();
 
@@ -22,3 +23,5 @@ routes.get("/ping", (req, res) => {
 routes.post("/contact/register", contactController.register);
 routes.post("/user/register", userController.register);
 routes.post("/user/login", userController.login);
+routes.post("/user/complement", authMiddleware, userController.addComplement);
+routes.get("/user/complement", authMiddleware, userController.getComplement);
