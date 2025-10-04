@@ -13,14 +13,14 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "sourceMap": false, // Desabilitado para produção
-    "removeComments": true // Remove comentários para otimizar
+    "sourceMap": false,
+    "removeComments": true
   },
   "include": [
     "src/**/*"
-  ], // Inclui todos os arquivos dentro da pasta src
+  ],
   "exclude": [
     "node_modules",
     "**/*.spec.ts"
-  ] // Exclui testes e node_modules
+  ]
 }

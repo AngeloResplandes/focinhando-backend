@@ -1,0 +1,17 @@
+version: '3.7'
+
+services:
+  focinhando-backend:
+    build:
+      context: .
+    container_name: focinhando-backend
+    ports:
+      - "4444:4444"
+    env_file:
+      - ./.env
+    volumes:
+      - database:/usr/src/app/prisma
+    command: sh -c "npx prisma migrate deploy && node dist/server.js"
+
+volumes:
+  database:

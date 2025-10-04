@@ -27,26 +27,20 @@ das informações.
 
 ## Início Rápido
 
-Após clonar o repositório, entre e instale as dependências.
+Execute o projeto com o npm (é necessário ter o Node.js instalado):
 ```bash
-npm install
+npm install           # Instale as dependências
+cp env_example .env   # Copie e configure o .env
+npm run build         # Faça o build do projeto
+npm start             # Execute o projeto
 ```
 
-Copie e renomeia o `env_example` para `.env`.
+Ou execute com o [Docker](https://www.docker.com/):
 ```bash
-cp env_example .env
-```
-`Defina alguma porta disponivel em 'PORT=...'`
-
-Gere o Prisma Client e crie uma base de dados.
-```bash
-npm run migrate dev
+docker-compose up --build 
 ```
 
-Inicie o servidor (desenvolvimento)
-```bash
-npm run dev
-```
+`Adicione o -d para rodar em segundo plano`
 
 ## Geral
 
