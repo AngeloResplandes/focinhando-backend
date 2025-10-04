@@ -105,7 +105,8 @@ docker-compose up --build  # Execute o projeto
 - **Body:**
   ```json
   {
-    "phoneNumber": "(94) 98169-1243",
+    "img": "<photo_url>",
+    "phoneNumber": "(94) 98169 -1243",
     "city": "Marabá",
     "state": "Pará",
     "dateOfBirth": "2000-01-01"
@@ -117,6 +118,7 @@ docker-compose up --build  # Execute o projeto
     "error": null,
     "complement": {
       "id": 1,
+      "img": "<photo_url>",
       "phoneNumber": "(00) 12345-6789",
       "city": "Marabá",
       "state": "Pará",
@@ -138,6 +140,7 @@ docker-compose up --build  # Execute o projeto
     "error": null,
     "complement": {
       "id": 1,
+      "img": "<photo_url>",
       "phoneNumber": "(00)12345-6789",
       "city": "Marabá",
       "state": "Pará",
