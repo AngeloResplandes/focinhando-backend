@@ -2,14 +2,16 @@
   "name": "focinhando-backend",
   "version": "1.0.0",
   "description": "",
-  "type": "module",
-  "main": "index.js",
+  "type": "commonjs",
+  "main": "dist/server.js",
   "scripts": {
+    "build": "npx prisma generate && tsc",
+    "start": "node ./dist/server.js",
     "dev": "tsx watch --env-file=.env ./src/server.ts",
     "init": "npx prisma init",
     "generate": "npx prisma generate",
-    "migrate": "npx prisma migrate",
-    "migrate dev": "npx prisma migrate dev"
+    "migrate:dev": "npx prisma migrate dev",
+    "migrate:deploy": "npx prisma migrate deploy"
   },
   "author": "",
   "license": "ISC",
@@ -18,6 +20,7 @@
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "express": "^5.1.0",
+    "helmet": "^8.1.0",
     "uuid": "^13.0.0",
     "zod": "^4.1.11"
   },

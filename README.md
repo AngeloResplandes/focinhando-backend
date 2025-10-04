@@ -15,15 +15,17 @@ candidaturas de adoção, publicações de informações no blog e pela seguran�
 das informações.
 
 ## Sumário
-- [Como iniciar o projeto?](#como-iniciar-o-projeto)
+- [Início Rápido](#início-rápido)
 - [Geral](#geral)
 - [User](#user)
 - [Pet](#pet)
 - [Publication](#publication)
 - [Contact](#contact)
-- [Webhooks](#webhooks)
+- [Autenticação](#autenticação)
+- [Error Handling](#error-handling)
+- [Modelo de Dados](#modelo-de-dados)
 
-## Como iniciar o projeto?
+## Início Rápido
 
 Após clonar o repositório, entre e instale as dependências.
 ```bash
@@ -412,6 +414,6 @@ Authorization: Bearer <token>
 
 Todos os endpoints retornam um campo `error`. Se a requisição for bem-sucedida, o `error` é `null`. Caso contrário, ele contém uma mensagem de erro.
 
-## Data Models
+## Modelo de Dados
 
 Consulte `prisma/schema.prisma` para ver os modelos completos do banco de dados.
