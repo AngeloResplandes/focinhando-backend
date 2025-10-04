@@ -22,12 +22,12 @@ model User {
   token      String?
   role       String
   createdAt  DateTime        @default(now())
-  updatedAt  DateTime        @updatedAt
+  updatedAt  DateTime?       @updatedAt
   complement UserComplement?
 }
 
 model UserComplement {
-  id           Int      @id @default(autoincrement())
+  id           Int       @id @default(autoincrement())
   img          String
   phoneNumber  String
   city         String
@@ -35,10 +35,10 @@ model UserComplement {
   dateOfBirth  DateTime
   adoptedPet   Int
   availablePet Int
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  userId       Int      @unique
-  user         User     @relation(fields: [userId], references: [id])
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime? @updatedAt
+  userId       Int       @unique
+  user         User      @relation(fields: [userId], references: [id])
   pet          Pet[]
 }
 
@@ -56,28 +56,28 @@ model Pet {
   race             String
   weight           Float
   createdAt        DateTime       @default(now())
-  updatedAt        DateTime       @updatedAt
+  updatedAt        DateTime?      @updatedAt
   userComplementId Int
   userComplement   UserComplement @relation(fields: [userComplementId], references: [id])
 }
 
 model Publication {
-  id        Int      @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   title     String
   topic     String
   img       String
   text      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
 }
 
 model Contact {
-  id          Int      @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
   fullName    String
   email       String
   phoneNumber String
   subject     String
   message     String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime? @updatedAt
 }

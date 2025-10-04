@@ -23,11 +23,11 @@ export const postPublication: RequestHandler = async (req, res) => {
         return res.status(400).json({ error: "Dados inválidos" });
     }
 
-    try {
-        const publication = await createPublication(parseResult.data);
-        publication.img = getAbsoluteImageUrl(`media/publications/${publication.img}`);
-        res.status(201).json({ error: null, publication });
-    } catch (error) {
-        res.status(500).json({ error: "Erro ao criar publicação" });
+    const publication = await createPublication(parseResult.data);
+    if (!publication) {
+        res.status(400).json({ error: "Ocorreu algum erro" });
     }
+    publication.img = getAbsoluteImageUrl(`media/publications/${publication.img}`);
+
+    res.status(201).json({ error: null, publication });
 }
