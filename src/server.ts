@@ -1,24 +1,29 @@
 import express, { type NextFunction, type Request, type Response } from "express";
 import cors from "cors";
 import { routes } from "./routes/main.js";
+import helmet from "helmet";
 
-// Criando instância
 const server = express();
 
-// Setando configurações do servidor
+server.use(helmet());
 server.use(cors());
 server.use(express.static("public"));
 server.use(express.json());
 
-// Vinculando rotas
 server.use(routes);
 server.use((err: any, req: Request, res: Response, next: NextFunction) => {
     console.error(err);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: "Erro Interno de Servidor" });
 });
 
-// Configuração da porta
+server.use((req: Request, res: Response) => {
+    res.status(404);
+    res.json({ error: 'Endpoint não encontrado.' });
+});
+
 const port = process.env.PORT || "4000";
+const blue = '\x1b[34m';
+const reset = '\x1b[0m';
 server.listen(port, () => {
-    console.log(`Server running successfully at http://localhost:${port}`);
+    console.log(`Servidor rodando com sucesso em ${blue}http://localhost:${port}/${reset}`);
 });
