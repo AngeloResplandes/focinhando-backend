@@ -27,20 +27,21 @@ das informações.
 
 ## Início Rápido
 
-Execute o projeto com o npm (é necessário ter o Node.js instalado):
+Execute o projeto com o npm (é necessário ter o [Node.js](https://nodejs.org/) instalado):
 ```bash
-npm install           # Instale as dependências
-cp env_example .env   # Copie e configure o .env
-npm run build         # Faça o build do projeto
-npm start             # Execute o projeto
+npm install                # Instale as dependências
+cp env_example .env        # Copie e configure a porta do .env
+npm run build              # Faça o build do projeto
+npm start                  # Execute o projeto
 ```
 
 Ou execute com o [Docker](https://www.docker.com/):
 ```bash
-docker-compose up --build 
+cp env_example .env        # Copie e configure a porta do .env
+docker-compose up --build  # Execute o projeto
 ```
 
-`Adicione o -d para rodar em segundo plano`
+`No comando docker-compose, adicione no final -d para rodar em segundo plano`
 
 ## Geral
 
