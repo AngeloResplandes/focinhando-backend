@@ -18,9 +18,9 @@ das informações.
 - [Como iniciar o projeto?](#como-iniciar-o-projeto)
 - [Geral](#geral)
 - [User](#user)
-- [Contact](#contact)
 - [Pet](#pet)
 - [Publication](#publication)
+- [Contact](#contact)
 - [Webhooks](#webhooks)
 
 ## Como iniciar o projeto?
@@ -153,6 +153,145 @@ npm run dev
   }
   ```
 
+## Pet
+
+### `POST /pets/register`
+- **Description:** Registrar um novo pet.
+- **Auth:** None
+- **Body:**
+  ```json
+  {
+    "name": "Luna",
+    "img": "luna.png",
+    "age": "2025-02-04T00:00:00.000Z",
+    "city": "Marabá",
+    "state": "PA",
+    "sex": "fêmea",
+    "vaccinated": true,
+    "about": "Luna é uma gatinha muito carinhosa e brincalhona. Adora brincar com bolinhas e dormir no colo. É muito sociável com outros gatos e crianças.",
+    "specie": "gato",
+    "race": "SRD (Sem Raça Definida)",
+    "weight": 2.5,
+    "userComplementId": 1
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "error": null,
+    "pets": {
+        "id": 1,
+        "name": "Luna",
+        "img": "luna.png",
+        "age": "2025-02-04T00:00:00.000Z",
+        "city": "Marabá",
+        "state": "PA",
+        "sex": "fêmea",
+        "vaccinated": true,
+        "about": "Luna é uma gatinha muito carinhosa e brincalhona. Adora brincar com bolinhas e dormir no colo. É muito sociável com outros gatos e crianças.",
+        "specie": "gato",
+        "race": "SRD (Sem Raça Definida)",
+        "weight": 2.5,
+      }
+  }
+  ```
+
+### `GET /pets`
+- **Description:** Listar produtos com filtros opcionais.
+- **Auth:** None
+- **Query Parameters:**
+  | Name     | Type   |
+  | -------- | ------ |
+  | sex      | string |
+  | specie   | string |
+  | race     | string |
+- **Response:**
+  ```json
+  {
+    "error": null,
+    "products": [
+      {
+        "id": 1,
+        "name": "Luna",
+        "img": "luna.png",
+        "age": "2025-02-04T00:00:00.000Z",
+        "city": "Marabá",
+        "state": "PA",
+        "sex": "fêmea",
+        "vaccinated": true,
+        "about": "Luna é uma gatinha muito carinhosa e brincalhona. Adora brincar com bolinhas e dormir no colo. É muito sociável com outros gatos e crianças.",
+        "specie": "gato",
+        "race": "SRD (Sem Raça Definida)",
+        "weight": 2.5,
+      },
+      {
+        "id": 2,
+        "name": "Luna",
+        "img": "luna.png",
+        "age": "2025-02-04T00:00:00.000Z",
+        "city": "Marabá",
+        "state": "PA",
+        "sex": "fêmea",
+        "vaccinated": true,
+        "about": "Luna é uma gatinha muito carinhosa e brincalhona. Adora brincar com bolinhas e dormir no colo. É muito sociável com outros gatos e crianças.",
+        "specie": "gato",
+        "race": "SRD (Sem Raça Definida)",
+        "weight": 2.5,
+      }
+    ]
+  }
+  ```
+
+## Publication
+
+### `POST /pet/register`
+- **Description:** Registrar uma nova publicação.
+- **Auth:** Yes (Bearer token)
+- **Body:**
+  ```json
+  {
+    "title": "Como preparar sua casa para receber um novo pet",
+    "topic": "Dicas",
+    "img": "blog.webp",
+    "text": "Receber um novo pet em casa é uma experiência maravilhosa, mas requer alguns preparativos importantes. Aqui estão as principais dicas para garantir que seu novo amigo se sinta seguro e confortável."
+  }
+  ```
+- **Body:**
+```json
+  {
+    "error": null,
+    "publication": {
+        "id": 1,
+        "title": "Como preparar sua casa para receber um novo pet",
+        "topic": "Dicas",
+        "img": "http://localhost:4444/media/publications/blog.webp",
+        "text": "Receber um novo pet em casa é uma experiência maravilhosa, mas requer alguns preparativos importantes. Aqui estão as principais dicas para garantir que seu novo amigo se sinta seguro e confortável.",
+        "createdAt": "2025-10-03T16:28:17.954Z",
+        "updatedAt": "2025-10-03T16:28:17.954Z"
+    }
+  }
+```
+
+### `GET /publication/all-publications`
+- **Descrição:** Obter lista de todas as publicações.
+- **Auth:** None
+  ```json
+  {
+    "error": null,
+    "publication": [
+      {
+          "id": 1,
+          "title": "Como preparar sua casa para receber um novo pet",
+          "topic": "Dicas",
+          "img": "http://localhost:4444/media/publications/blog.webp",
+          "text": "Receber um novo pet em casa é uma experiência maravilhosa, mas requer alguns preparativos importantes. Aqui estão as principais dicas para garantir que seu novo amigo se sinta seguro e confortável.",
+          "createdAt": "2025-10-03T16:26:13.534Z",
+          "updatedAt": "2025-10-03T16:26:13.534Z"
+      }
+    ]
+  }
+  ```
+
 ## Contact
 
 ### `POST /contact/register`
@@ -261,215 +400,18 @@ npm run dev
   }
   ```
 
-## Publication
+## Autenticação
 
-### `POST /pet/register`
-- **Description:** Registrar uma nova publicação.
-- **Auth:** Yes (Bearer token)
-- **Body:**
-  ```json
-  {
-    "title": "Como preparar sua casa para receber um novo pet",
-    "topic": "Dicas",
-    "img": "blog.webp",
-    "text": "Receber um novo pet em casa é uma experiência maravilhosa, mas requer alguns preparativos importantes. Aqui estão as principais dicas para garantir que seu novo amigo se sinta seguro e confortável."
-  }
-  ```
-- **Body:**
-```json
-  {
-    "error": null,
-    "publication": {
-        "id": 1,
-        "title": "Como preparar sua casa para receber um novo pet",
-        "topic": "Dicas",
-        "img": "http://localhost:4444/media/publications/blog.webp",
-        "text": "Receber um novo pet em casa é uma experiência maravilhosa, mas requer alguns preparativos importantes. Aqui estão as principais dicas para garantir que seu novo amigo se sinta seguro e confortável.",
-        "createdAt": "2025-10-03T16:28:17.954Z",
-        "updatedAt": "2025-10-03T16:28:17.954Z"
-    }
-  }
-```
-
-### `GET /publication/all-publications`
-- **Descrição:** Obter lista de todas as publicações.
-- **Auth:** None
-  ```json
-  {
-    "error": null,
-    "publication": [
-      {
-          "id": 1,
-          "title": "Como preparar sua casa para receber um novo pet",
-          "topic": "Dicas",
-          "img": "http://localhost:4444/media/publications/blog.webp",
-          "text": "Receber um novo pet em casa é uma experiência maravilhosa, mas requer alguns preparativos importantes. Aqui estão as principais dicas para garantir que seu novo amigo se sinta seguro e confortável.",
-          "createdAt": "2025-10-03T16:26:13.534Z",
-          "updatedAt": "2025-10-03T16:26:13.534Z"
-      }
-    ]
-  }
-  ```
-
-## Pet
-
-### `POST /pet/register`
-- **Description:** Registrar um novo pet.
-- **Auth:** None
-- **Response:**
-  ```json
-  {
-    "error": null,
-    "products": [
-      {
-        "id": 1,
-        "label": "Product Name",
-        "price": 99.99,
-        "image": "media/products/<filename>",
-        "liked": false
-      }
-    ]
-  }
-  ```
-
-### `GET /pet`
-- **Description:** Listar produtos com filtros opcionais.
-- **Auth:** None
-- **Query Parameters:**
-  | Name     | Type   | Required | Description                      |
-  | -------- | ------ | -------- | -------------------------------- |
-  | metadata | string | No       | JSON string of metadata filters  |
-  | orderBy  | string | No       | "views", "selling", or "price"   |
-  | limit    | string | No       | Max number of products to return |
-- **Response:**
-  ```json
-  {
-    "error": null,
-    "products": [
-      {
-        "id": 1,
-        "label": "Product Name",
-        "price": 99.99,
-        "image": "media/products/<filename>",
-        "liked": false
-      }
-    ]
-  }
-  ```
-
-### `GET /pet/:id`
-- **Description:** Buscar pet por ID.
-- **Auth:** None
-- **Params:**
-  | Name | Type             | Required |
-  | ---- | ---------------- | -------- |
-  | id   | string (numeric) | Yes      |
-- **Response:**
-  ```json
-  {
-    "error": null,
-    "product": {
-      "id": 1,
-      "label": "Product Name",
-      "price": 99.99,
-      "description": "...",
-      "categoryId": 1,
-      "images": ["media/products/<filename>"]
-    },
-    "category": {
-      "id": 1,
-      "name": "Category Name",
-      "slug": "category-slug"
-    }
-  }
-  ```
-
-### `GET /pet/:specie`
-- **Description:** Buscar pets relacionados da mesma espécie.
-- **Auth:** None
-- **Params:**
-  | Name | Type             | Required |
-  | ---- | ---------------- | -------- |
-  | id   | string (numeric) | Yes      |
-- **Query:**
-  | Name  | Type             | Required |
-  | ----- | ---------------- | -------- |
-  | limit | string (numeric) | No       |
-- **Response:**
-  ```json
-  {
-    "error": null,
-    "products": [ ... ]
-  }
-  ```
-
-## Webhooks
-
-### `POST /webhook/stripe`
-- **Description:** Handle Stripe payment events and update order statuses.
-- **Auth:** None (verified via Stripe signature)
-- **Purpose:** Processes Stripe webhook events to automatically update order statuses
-- **Supported Events:**
-  - `checkout.session.completed` - Marks order as `paid`
-  - `checkout.session.expired` - Marks order as `expired`
-  - `payment_intent.payment_failed` - Marks order as `failed`
-- **Order Status Values:**
-  - `pending` - Order created, waiting for payment
-  - `paid` - Payment completed successfully
-  - `expired` - Checkout session expired
-  - `failed` - Payment failed
-
-
-## Authentication
-
-Some endpoints require authentication via a Bearer token. Pass the token in the `Authorization` header:
+Alguns endpoints exigem autenticação por meio de um token Bearer. Passe o token no cabeçalho `Authorization`:
 
 ```
 Authorization: Bearer <token>
 ```
 
----
-
 ## Error Handling
 
-All endpoints return an `error` field. If the request is successful, `error` is `null`. Otherwise, it contains an error message.
-
----
+Todos os endpoints retornam um campo `error`. Se a requisição for bem-sucedida, o `error` é `null`. Caso contrário, ele contém uma mensagem de erro.
 
 ## Data Models
 
-See `prisma/schema.prisma` for full database models.
-
----
-
-## Stripe Webhook Setup
-
-The application includes a Stripe webhook endpoint to handle payment events and automatically update order statuses.
-
-### Environment Variables Required
-
-Add these environment variables to your `.env` file:
-
-```env
-STRIPE_SECRET_KEY=your_stripe_secret_key
-STRIPE_WEBHOOK_SECRET=your_stripe_webhook_secret
-```
-
-### Setting up the Webhook in Stripe Dashboard
-
-1. Go to your Stripe Dashboard
-2. Navigate to Developers > Webhooks
-3. Click "Add endpoint"
-4. Set the endpoint URL to: `https://your-domain.com/webhook/stripe`
-5. Select the following events:
-   - `checkout.session.completed`
-   - `checkout.session.expired`
-   - `payment_intent.payment_failed`
-6. Copy the webhook signing secret and add it to your environment variables as `STRIPE_WEBHOOK_SECRET`
-
-### Security
-
-The webhook endpoint verifies the Stripe signature to ensure requests are legitimate. Make sure to:
-- Keep your `STRIPE_WEBHOOK_SECRET` secure
-- Use HTTPS in production
-- Never expose the webhook secret in client-side code 
+Consulte `prisma/schema.prisma` para ver os modelos completos do banco de dados.
