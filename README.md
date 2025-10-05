@@ -27,7 +27,7 @@ das informações.
 
 ## Início Rápido
 
-Execute o projeto com o npm (é necessário ter o [Node.js](https://nodejs.org/) instalado):
+Execute o projeto com o npm (é necessário ter o [Node.js](https://nodejs.org/) v22 instalado):
 ```bash
 npm install                # Instale as dependências
 cp env_example .env        # Copie e configure a porta do .env
