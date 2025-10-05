@@ -30,14 +30,14 @@ das informações.
 Execute o projeto com o npm (é necessário ter o [Node.js](https://nodejs.org/) v22 instalado):
 ```bash
 npm install                # Instale as dependências
-cp env_example .env        # Copie e configure a porta do .env
+cp env_example .env        # Copie as variáveis de ambiente
 npm run build              # Faça o build do projeto
 npm start                  # Execute o projeto
 ```
 
 Ou execute com o [Docker](https://www.docker.com/):
 ```bash
-cp env_example .env        # Copie e configure a porta do .env
+cp env_example .env        # Copie as variáveis de ambiente
 docker-compose up --build  # Execute o projeto
 ```
 

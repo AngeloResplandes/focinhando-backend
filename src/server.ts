@@ -21,7 +21,7 @@ server.use((req: Request, res: Response) => {
     res.json({ error: 'Endpoint não encontrado.' });
 });
 
-const port = process.env.PORT || "4000";
+const port = process.env.PORT || "4444";
 const blue = '\x1b[34m';
 const reset = '\x1b[0m';
 server.listen(port, () => {
