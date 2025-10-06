@@ -18,7 +18,8 @@ export const getAllPets = async (filters: PetFilters) => {
             race: true,
             weight: true,
             createdAt: true,
-            updatedAt: true
+            updatedAt: true,
+            userComplementId: true
         }
     });
 
