@@ -8,8 +8,6 @@ services:
     env_file:
       - ./.env
     volumes:
-      - database:/usr/src/app/prisma
+      - ./prisma:/usr/src/app/prisma
+      - ./public:/usr/src/app/public
     command: sh -c "npx prisma migrate deploy && node dist/server.js"
-
-volumes:
-  database:
