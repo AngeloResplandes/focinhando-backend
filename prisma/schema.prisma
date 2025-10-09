@@ -15,7 +15,7 @@ datasource db {
 }
 
 model User {
-  id         Int             @id @default(autoincrement())
+  id         String          @id @default(uuid())
   name       String
   email      String          @unique
   password   String
@@ -27,7 +27,7 @@ model User {
 }
 
 model UserComplement {
-  id           Int       @id @default(autoincrement())
+  id           String    @id @default(uuid())
   img          String
   phoneNumber  String
   city         String
@@ -37,13 +37,13 @@ model UserComplement {
   availablePet Int
   createdAt    DateTime  @default(now())
   updatedAt    DateTime? @updatedAt
-  userId       Int       @unique
+  userId       String    @unique
   user         User      @relation(fields: [userId], references: [id])
   pet          Pet[]
 }
 
 model Pet {
-  id               Int            @id @default(autoincrement())
+  id               String         @id @default(uuid())
   name             String
   img              String
   age              DateTime
@@ -57,12 +57,12 @@ model Pet {
   weight           Float
   createdAt        DateTime       @default(now())
   updatedAt        DateTime?      @updatedAt
-  userComplementId Int
+  userComplementId String         @unique
   userComplement   UserComplement @relation(fields: [userComplementId], references: [id])
 }
 
 model Publication {
-  id        Int       @id @default(autoincrement())
+  id        String    @id @default(uuid())
   title     String
   topic     String
   img       String
@@ -72,7 +72,7 @@ model Publication {
 }
 
 model Contact {
-  id          Int       @id @default(autoincrement())
+  id          String    @id @default(uuid())
   fullName    String
   email       String
   phoneNumber String

@@ -29,7 +29,7 @@ export const getAllPets = async (filters: PetFilters) => {
     }));
 }
 
-export const createPet = async (userComplementId: number, pet: Pet) => {
+export const createPet = async (userComplementId: string, pet: Pet) => {
     return await prisma.pet.create({
         data: {
             ...pet,

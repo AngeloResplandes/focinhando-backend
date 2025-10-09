@@ -29,7 +29,7 @@ export const postPets: RequestHandler = async (req, res) => {
     }
 
     const pet = await createPet(
-        parseResult.data.userComplementId,
+        String(parseResult.data.userComplementId),
         parseResult.data
     );
     if (!pet) {
