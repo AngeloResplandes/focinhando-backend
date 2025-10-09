@@ -12,5 +12,5 @@ export const postPetsSchema = z.object({
     specie: z.string().min(2),
     race: z.string().min(2),
     weight: z.number().positive(),
-    userComplementId: z.number().int().positive()
+    userComplementId: z.string()
 });

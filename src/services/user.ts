@@ -56,7 +56,17 @@ export const getUserByToken = async (token: string) => {
     return user.id;
 }
 
-export const createComplement = async (userId: number, complement: Complement) => {
+export const getUserById = async (id: string) => {
+    const user = await prisma.user.findUnique({
+        where: {
+            id,
+        },
+    });
+
+    return user;
+};
+
+export const createComplement = async (userId: string, complement: Complement) => {
     return await prisma.userComplement.create({
         data: {
             ...complement,
@@ -67,7 +77,7 @@ export const createComplement = async (userId: number, complement: Complement) =
     });
 }
 
-export const getComplementFromUserId = async (userId: number) => {
+export const getComplementFromUserId = async (userId: string) => {
     return await prisma.userComplement.findFirst({
         where: { userId },
         select: {
