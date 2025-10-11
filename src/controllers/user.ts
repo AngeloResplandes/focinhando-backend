@@ -1,6 +1,11 @@
 import { RequestHandler } from "express";
 import { userSchema } from "../schemas/user-schema";
-import { createComplement, createUser, getComplementFromUserId, logUser } from "../services/user";
+import {
+    createComplement,
+    createUser,
+    getComplementFromUserId,
+    logUser
+} from "../services/user";
 import { loginSchema } from "../schemas/login-schema";
 import { addComplementSchema } from "../schemas/add-complement-schema";
 
@@ -14,7 +19,7 @@ export const register: RequestHandler = async (req, res) => {
 
     const { name, email, password } = result.data;
 
-    const user = await createUser(name, email, password);
+    const user = await createUser({ name, email, password });
     if (!user) {
         res.status(400).json({ error: "E-mail já cadastrado" });
         return

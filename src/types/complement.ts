@@ -1,5 +1,5 @@
 export type Complement = {
-    img: string
+    img: string;
     phoneNumber: string;
     city: string;
     state: string;

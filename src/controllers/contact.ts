@@ -12,12 +12,13 @@ export const register: RequestHandler = async (req, res) => {
 
     const { fullName, email, phoneNumber, subject, message } = result.data;
 
-    const contact = await createContact(
+    const contact = await createContact({
         fullName,
         email,
         phoneNumber,
         subject,
-        message);
+        message
+    });
     if (!contact) {
         res.status(400).json({ error: "E-mail já cadastrado" });
         return
