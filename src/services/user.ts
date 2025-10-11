@@ -2,12 +2,11 @@ import { compare, hash } from "bcryptjs";
 import { prisma } from "../libs/prisma"
 import { v4 } from "uuid";
 import { Complement } from "../types/complement";
+import { User } from "../types/user";
 
-export const createUser = async (
-    name: string,
-    email: string,
-    password: string,
-) => {
+export const createUser = async (data: User) => {
+    const { name, email, password } = data;
+
     const existing = await prisma.user.findUnique({ where: { email } });
     if (existing) return null;
 
