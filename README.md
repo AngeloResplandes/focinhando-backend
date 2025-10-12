@@ -71,7 +71,7 @@ docker-compose up --build  # Execute o projeto
   {
    "error": null,
     "user": {
-        "id": 1,
+        "id": "id",
         "name": "User Name",
         "email": "user@email.com",
         "role": "member",
@@ -117,7 +117,7 @@ docker-compose up --build  # Execute o projeto
   {
     "error": null,
     "complement": {
-      "id": 1,
+      "id": "id",
       "img": "<photo_url>",
       "phoneNumber": "(00) 12345-6789",
       "city": "Marabá",
@@ -139,7 +139,7 @@ docker-compose up --build  # Execute o projeto
   {
     "error": null,
     "complement": {
-      "id": 1,
+      "id": "id",
       "img": "<photo_url>",
       "phoneNumber": "(00)12345-6789",
       "city": "Marabá",
@@ -157,7 +157,7 @@ docker-compose up --build  # Execute o projeto
 
 ### `POST /pets/register`
 - **Description:** Registrar um novo pet.
-- **Auth:** None
+- **Auth:** Yes (Bearer token)
 - **Body:**
   ```json
   {
@@ -172,7 +172,7 @@ docker-compose up --build  # Execute o projeto
     "specie": "gato",
     "race": "SRD (Sem Raça Definida)",
     "weight": 2.5,
-    "userComplementId": 1
+    "userComplementId": "userComplementId"
   }
   ```
 - **Response:**
@@ -180,7 +180,7 @@ docker-compose up --build  # Execute o projeto
   {
     "error": null,
     "pets": {
-        "id": 1,
+        "id": "id",
         "name": "Luna",
         "img": "luna.png",
         "age": "2025-02-04T00:00:00.000Z",
@@ -192,6 +192,7 @@ docker-compose up --build  # Execute o projeto
         "specie": "gato",
         "race": "SRD (Sem Raça Definida)",
         "weight": 2.5,
+        "userComplementId": "userComplementId"
       }
   }
   ```
@@ -211,7 +212,7 @@ docker-compose up --build  # Execute o projeto
     "error": null,
     "products": [
       {
-        "id": 1,
+        "id": "id",
         "name": "Luna",
         "img": "luna.png",
         "age": "2025-02-04T00:00:00.000Z",
@@ -223,6 +224,7 @@ docker-compose up --build  # Execute o projeto
         "specie": "gato",
         "race": "SRD (Sem Raça Definida)",
         "weight": 2.5,
+        "userComplementId": "userComplementId"
       },
       {
         "id": 2,
@@ -237,6 +239,7 @@ docker-compose up --build  # Execute o projeto
         "specie": "gato",
         "race": "SRD (Sem Raça Definida)",
         "weight": 2.5,
+        "userComplementId": "userComplementId"
       }
     ]
   }
@@ -244,7 +247,7 @@ docker-compose up --build  # Execute o projeto
 
 ## Publication
 
-### `POST /pet/register`
+### `POST /publication/register`
 - **Description:** Registrar uma nova publicação.
 - **Auth:** Yes (Bearer token)
 - **Body:**
@@ -261,7 +264,7 @@ docker-compose up --build  # Execute o projeto
   {
     "error": null,
     "publication": {
-        "id": 1,
+        "id": "id",
         "title": "Como preparar sua casa para receber um novo pet",
         "topic": "Dicas",
         "img": "http://localhost:4444/media/publications/blog.webp",
@@ -280,7 +283,7 @@ docker-compose up --build  # Execute o projeto
     "error": null,
     "publication": [
       {
-          "id": 1,
+          "id": "id",
           "title": "Como preparar sua casa para receber um novo pet",
           "topic": "Dicas",
           "img": "http://localhost:4444/media/publications/blog.webp",
@@ -312,7 +315,7 @@ docker-compose up --build  # Execute o projeto
   {
     "error": null,
     "contact": {
-      "id": 1,
+      "id": "id",
       "fullName": "Full Name",
       "email": "name@email.com",
       "phoneNumber": "(00)12345-6789",
@@ -333,7 +336,7 @@ docker-compose up --build  # Execute o projeto
     "error": null,
     "contacts": [
       {
-        "id": 1,
+        "id": "id",
         "fullName": "Full Name 1",
         "email": "name1@email.com",
         "phoneNumber": "(00)12345-6789",
@@ -343,7 +346,7 @@ docker-compose up --build  # Execute o projeto
         "updatedAt": "2025-10-02T12:30:00.000Z"
       },
       {
-        "id": 2,
+        "id": "id",
         "fullName": "Full Name 2",
         "email": "name2@email.com",
         "phoneNumber": "(11)98765-4321",
@@ -371,7 +374,7 @@ docker-compose up --build  # Execute o projeto
     "error": null,
     "contacts": [
       {
-        "id": "1",
+        "id": "id",
         "fullName": "Full Name 1",
         "email": "name1@email.com",
         "phoneNumber": "(00)12345-6789",
@@ -381,7 +384,7 @@ docker-compose up --build  # Execute o projeto
         "updatedAt": "2025-10-02T12:30:00.000Z"
       },
       {
-        "id": 2,
+        "id": "id",
         "fullName": "Full Name 2",
         "email": "name2@email.com",
         "phoneNumber": "(11)98765-4321",
