@@ -23,7 +23,7 @@ export const getAllPets = async (filters: PetFilters) => {
         }
     });
 
-    return pets.map(pet => ({
+    return pets.map((pet: Pet) => ({
         ...pet,
         img: `media/pets/${pet.img}`
     }));

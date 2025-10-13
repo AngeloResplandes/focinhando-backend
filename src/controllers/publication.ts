@@ -2,6 +2,7 @@ import { RequestHandler } from "express";
 import { getAllPublications, createPublication } from "../services/publication";
 import { getAbsoluteImageUrl } from "../utils/get-absolute-image-url";
 import { publicationSchema } from "../schemas/publication-schema";
+import { Publication } from "../types/publication";
 
 export const getPublications: RequestHandler = async (req, res) => {
     const publications = await getAllPublications();
@@ -9,7 +10,7 @@ export const getPublications: RequestHandler = async (req, res) => {
         res.status(200).json({ error: "Ocorreu algum erro" })
     }
 
-    const publicationsWithAbsoluteUrl = publications.map(publication => ({
+    const publicationsWithAbsoluteUrl = publications.map((publication: Publication) => ({
         ...publication,
         img: getAbsoluteImageUrl(publication.img)
     }))

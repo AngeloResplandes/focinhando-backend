@@ -3,6 +3,7 @@ import { getPetsSchema } from "../schemas/get-pets-schema";
 import { createPet, getAllPets } from "../services/pet";
 import { getAbsoluteImageUrl } from "../utils/get-absolute-image-url";
 import { postPetsSchema } from "../schemas/post-pets-schema";
+import { Pet } from "../types/pet";
 
 export const getPets: RequestHandler = async (req, res) => {
     const parseResult = getPetsSchema.safeParse(req.query);
@@ -13,7 +14,7 @@ export const getPets: RequestHandler = async (req, res) => {
 
     const filters = parseResult.data;
     const pets = await getAllPets(filters);
-    const petsWithAbsoluteUrl = pets.map(pet => ({
+    const petsWithAbsoluteUrl = pets.map((pet: Pet) => ({
         ...pet,
         img: getAbsoluteImageUrl(pet.img)
     }))

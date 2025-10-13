@@ -14,10 +14,10 @@ export const getAllPublications = async () => {
         }
     });
 
-    return publications.map(publication => ({
+    return publications.map((publication: Publication) => ({
         ...publication,
         img: `media/publications/${publication.img}`
-    }))
+    }));
 }
 
 export const createPublication = async (data: Publication) => {
