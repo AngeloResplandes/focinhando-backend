@@ -8,6 +8,8 @@ import { authAdminMiddleware } from "../middleware/authAdmin";
 
 export const routes = Router();
 
+const adminOnly = [authMiddleware, authAdminMiddleware];
+
 routes.get("/", (req, res) => {
     res.json({
         success: true,
@@ -21,14 +23,27 @@ routes.get("/", (req, res) => {
 
 routes.get('/ping', (req, res) => res.json({ pong: true }));
 
-routes.post("/contact/register", contactController.register);
-routes.get("/contact/all-contacts", authMiddleware, authAdminMiddleware, contactController.getContact);
-routes.get("/contact", authMiddleware, authAdminMiddleware, contactController.getContactsPaginated);
-routes.post("/pets/register", authMiddleware, authAdminMiddleware, petController.postPets);
-routes.get("/pets", petController.getPets);
-routes.post("/publication/register", authMiddleware, authAdminMiddleware, publicationController.postPublication);
-routes.get("/publication/all-publications", publicationController.getPublications);
-routes.post("/user/register", userController.register);
-routes.post("/user/login", userController.login);
-routes.post("/user/complement", authMiddleware, userController.addComplement);
-routes.get("/user/complement", authMiddleware, userController.getComplement);
+const contactRouter = Router();
+contactRouter.post("/register", contactController.register);
+contactRouter.get("/all-contacts", ...adminOnly, contactController.getContact);
+contactRouter.get("/", ...adminOnly, contactController.getContactsPaginated);
+routes.use("/contact", contactRouter);
+
+const petRouter = Router();
+petRouter.post("/register", ...adminOnly, petController.postPets);
+petRouter.get("/", petController.getPets);
+routes.use("/pets", petRouter);
+
+const publicationRouter = Router();
+publicationRouter.post("/register", ...adminOnly, publicationController.postPublication);
+publicationRouter.get("/all-publications", publicationController.getPublications);
+routes.use("/publication", publicationRouter);
+
+const userRouter = Router();
+userRouter.post("/register", userController.register);
+userRouter.post("/login", userController.login);
+userRouter.post("/complement", authMiddleware, userController.addComplement);
+userRouter.get("/complement", authMiddleware, userController.getComplement);
+userRouter.put("/complement", authMiddleware, userController.updateComplement);
+userRouter.delete("/", authMiddleware, userController.deleteUser);
+routes.use("/user", userRouter);

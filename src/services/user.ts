@@ -93,3 +93,27 @@ export const getComplementFromUserId = async (userId: string) => {
         }
     });
 }
+
+export const updateComplementFromUserId = async (userId: string, complement: Complement) => {
+    const updated = await prisma.userComplement.update({
+        where: { userId },
+        data: {
+            ...complement,
+        }
+    });
+
+    if (!updated) return null;
+    return updated;
+}
+
+export const deleteUserFromUserId = async (userId: string) => {
+    const complement = await prisma.userComplement.findFirst({ where: { userId } });
+
+    if (complement) {
+        await prisma.pet.deleteMany({ where: { userComplementId: complement.id } });
+        await prisma.userComplement.delete({ where: { id: complement.id } });
+    }
+
+    await prisma.user.delete({ where: { id: userId } });
+    return true;
+};
