@@ -4,7 +4,9 @@ import {
     createComplement,
     createUser,
     getComplementFromUserId,
-    logUser
+    logUser,
+    updateComplementFromUserId,
+    deleteUserFromUserId
 } from "../services/user";
 import { loginSchema } from "../schemas/login-schema";
 import { addComplementSchema } from "../schemas/add-complement-schema";
@@ -78,4 +80,42 @@ export const getComplement: RequestHandler = async (req, res) => {
 
     const complement = await getComplementFromUserId(userId);
     res.json({ error: null, complement });
+}
+
+export const updateComplement: RequestHandler = async (req, res) => {
+    const userId = (req as any).userId;
+    if (!userId) {
+        res.status(401).json({ error: "Acesso negado" });
+        return;
+    }
+
+    const result = addComplementSchema.safeParse(req.body);
+    if (!result.success) {
+        res.status(400).json({ error: "Dados inválidos" });
+        return;
+    }
+
+    const updated = await updateComplementFromUserId(userId, result.data);
+    if (!updated) {
+        res.status(400).json({ error: "Não foi possível atualizar os dados" });
+        return;
+    }
+
+    res.json({ error: null, complement: updated });
+}
+
+export const deleteUser: RequestHandler = async (req, res) => {
+    const userId = (req as any).userId;
+    if (!userId) {
+        res.status(401).json({ error: "Acesso negado" });
+        return;
+    }
+
+    const ok = await deleteUserFromUserId(userId);
+    if (!ok) {
+        res.status(400).json({ error: "Não foi possível deletar o usuário" });
+        return;
+    }
+
+    res.status(200).json({ error: null, message: "Usuário deletado" });
 }
