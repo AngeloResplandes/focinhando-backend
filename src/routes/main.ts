@@ -45,5 +45,5 @@ userRouter.post("/login", userController.login);
 userRouter.post("/complement", authMiddleware, userController.addComplement);
 userRouter.get("/complement", authMiddleware, userController.getComplement);
 userRouter.put("/complement", authMiddleware, userController.updateComplement);
-userRouter.delete("/", authMiddleware, userController.deleteUser);
+userRouter.delete("/remove", authMiddleware, userController.deleteUser);
 routes.use("/user", userRouter);
