@@ -12,7 +12,7 @@ Um sistema completo para um site de adoção de pets com o foco no cadastro de
 animais e usuários, processamento de candidaturas de adoção, publicações no 
 blog e segurança de dados/autenticação.
 
-## Documentação - Postman
+## Documentação
 
 * [Link Postman](https://documenter.getpostman.com/view/40939226/2sB3QQJnT2)
 
