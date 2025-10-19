@@ -26,3 +26,16 @@ export const createPublication = async (data: Publication) => {
     });
     return publication;
 }
+
+export const updatePublicationFromId = async (id: string, data: Publication) => {
+    return await prisma.publication.update({
+        where: { id },
+        data
+    });
+}
+
+export const deletePublicationFromId = async (id: string) => {
+    return await prisma.publication.delete({
+        where: { id }
+    });
+}

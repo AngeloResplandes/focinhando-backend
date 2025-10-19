@@ -1,5 +1,10 @@
 import { RequestHandler } from "express";
-import { getAllPublications, createPublication } from "../services/publication";
+import {
+    getAllPublications,
+    createPublication,
+    updatePublicationFromId,
+    deletePublicationFromId
+} from "../services/publication";
 import { getAbsoluteImageUrl } from "../utils/get-absolute-image-url";
 import { publicationSchema } from "../schemas/publication-schema";
 import { Publication } from "../types/publication";
@@ -32,3 +37,31 @@ export const postPublication: RequestHandler = async (req, res) => {
 
     res.status(201).json({ error: null, publication });
 }
+
+export const putPublication: RequestHandler = async (req, res) => {
+    const { id } = req.params;
+    const parseResult = publicationSchema.safeParse(req.body);
+    if (!parseResult.success) {
+        return res.status(400).json({ error: "Dados inválidos" });
+    }
+
+    const updated = await updatePublicationFromId(id, parseResult.data);
+    updated.img = getAbsoluteImageUrl(`media/publications/${updated.img}`);
+    if (!updated) {
+        res.status(404).json({ error: "Publicação não encontrada" });
+        return;
+    }
+
+    res.json({ error: null, publication: updated });
+};
+
+export const deletePublicationById: RequestHandler = async (req, res) => {
+    const { id } = req.params;
+
+    const ok = await deletePublicationFromId(id);
+    if (!ok) {
+        res.status(404).json({ error: "Publicação não encontrada" });
+    }
+
+    res.json({ error: null, message: "Publicação removida com sucesso" });
+};

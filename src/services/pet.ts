@@ -37,3 +37,16 @@ export const createPet = async (userComplementId: string, pet: Pet) => {
         }
     });
 }
+
+export const updatePetFromId = async (id: string, data: Pet) => {
+    return await prisma.pet.update({
+        where: { id },
+        data
+    });
+}
+
+export const deletePetFromId = async (id: string) => {
+    return await prisma.pet.delete({
+        where: { id }
+    });
+}
