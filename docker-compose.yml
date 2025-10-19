@@ -1,13 +1,29 @@
 services:
+  database:
+    image: postgres:15
+    container_name: focinhando-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
   backend:
     build:
       context: .
-    container_name: focinhando-backend
+    container_name: focinhando-api
     ports:
-      - "4444:4444"
+      - "4000:4000"
     env_file:
       - ./.env
     volumes:
       - ./prisma:/usr/src/app/prisma
       - ./public:/usr/src/app/public
+    depends_on:
+      - database
     command: sh -c "npx prisma migrate deploy && node dist/server.js"
+
+volumes:
+  postgres_data:
