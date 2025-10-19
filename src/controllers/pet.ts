@@ -1,6 +1,11 @@
 import { RequestHandler } from "express";
 import { getPetsSchema } from "../schemas/get-pets-schema";
-import { createPet, getAllPets } from "../services/pet";
+import {
+    createPet,
+    deletePetFromId,
+    getAllPets,
+    updatePetFromId
+} from "../services/pet";
 import { getAbsoluteImageUrl } from "../utils/get-absolute-image-url";
 import { postPetsSchema } from "../schemas/post-pets-schema";
 import { Pet } from "../types/pet";
@@ -40,4 +45,36 @@ export const postPets: RequestHandler = async (req, res) => {
     pet.img = getAbsoluteImageUrl(`media/pets/${pet.img}`);
 
     res.json({ error: null, pet });
+}
+
+export const updatePet: RequestHandler = async (req, res) => {
+    const { id } = req.params;
+    const parseResult = postPetsSchema.safeParse(req.body);
+
+    if (!parseResult.success) {
+        res.status(400).json({ error: "Dados inválidos" });
+        return;
+    }
+
+    const updatedPet = await updatePetFromId(id, parseResult.data);
+    updatedPet.img = getAbsoluteImageUrl(`media/pets/${updatedPet.img}`);
+
+    if (!updatePet) {
+        res.status(404).json({ error: "Pet não encontrado" });
+        return;
+    }
+
+    res.json({ error: null, pet: updatedPet });
+}
+
+export const deletePet: RequestHandler = async (req, res) => {
+    const { id } = req.params;
+
+    const ok = await deletePetFromId(id);
+    if (!ok) {
+        res.status(404).json({ error: "Pet não encontrado" });
+        return;
+    }
+
+    res.json({ error: null, message: "Pet removido com sucesso" });
 }
