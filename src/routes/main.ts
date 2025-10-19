@@ -39,6 +39,8 @@ routes.use("/pets", petRouter);
 const publicationRouter = Router();
 publicationRouter.post("/register", ...adminOnly, publicationController.postPublication);
 publicationRouter.get("/all-publications", publicationController.getPublications);
+publicationRouter.put("/:id", ...adminOnly, publicationController.putPublication);
+publicationRouter.delete("/:id", ...adminOnly, publicationController.deletePublicationById);
 routes.use("/publication", publicationRouter);
 
 const userRouter = Router();
