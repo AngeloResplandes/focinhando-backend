@@ -5,7 +5,7 @@
 ![Express.js](https://img.shields.io/badge/Express.js-000000?style=plastic&logo=express&logoColor=white)
 ![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=plastic&logo=prisma&logoColor=white)
 ![Zod](https://img.shields.io/badge/Zod-3E6F8E?style=plastic&logo=zod&logoColor=white)
-![SQLite](https://img.shields.io/badge/SQLite-07405E?style=plastic&logo=sqlite&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192.svg?style=plastic&logo=postgresql&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=plastic&logo=docker&logoColor=white)
 
 Um sistema completo para um site de adoção de pets com o foco no cadastro de 
@@ -18,7 +18,8 @@ blog e segurança de dados/autenticação.
 
 ## Início Rápido
 
-Execute o projeto com o npm (é necessário ter o [Node.js](https://nodejs.org/) v22 instalado):
+Execute o projeto com o npm (é necessário ter o [Node.js 22v](https://nodejs.org/) 
+e o [PostgreSQL](https://www.postgresql.org/) instalado):
 ```bash
 npm install                # Instale as dependências
 cp env_example .env        # Copie as variáveis de ambiente
