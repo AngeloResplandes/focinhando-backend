@@ -16,7 +16,7 @@ routes.get("/", (req, res) => {
         data: {
             name: "Focinhando - Backend",
             version: "v1",
-            status: "operational"
+            status: "finished"
         }
     });
 });

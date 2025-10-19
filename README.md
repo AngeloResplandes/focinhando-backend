@@ -12,10 +12,6 @@ Um sistema completo para um site de adoção de pets com o foco no cadastro de
 animais e usuários, processamento de candidaturas de adoção, publicações no 
 blog e segurança de dados/autenticação.
 
-## Documentação
-
-* [Link Postman](https://documenter.getpostman.com/view/40939226/2sB3QQJnT2)
-
 ## Início Rápido
 
 Execute o projeto com o npm (é necessário ter o [Node.js 22v](https://nodejs.org/) 
@@ -34,5 +30,11 @@ docker-compose up --build  # Execute o projeto
 ```
 
 `No comando docker-compose, adicione no final -d para rodar em segundo plano`
+
+
+## Links
+
+* [Documentação - Postman](https://documenter.getpostman.com/view/40939226/2sB3QQJnT2)
+* [Deploy](https://focinhando-backend.up.railway.app/)
 
 ---
