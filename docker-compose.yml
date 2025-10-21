@@ -23,7 +23,7 @@ services:
       - ./public:/usr/src/app/public
     depends_on:
       - database
-    command: sh -c "npx prisma migrate deploy && node dist/server.js"
+    command: sh -c "npx prisma generate && npx prisma migrate deploy && node dist/server.js"
 
 volumes:
   postgres_data:
