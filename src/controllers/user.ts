@@ -24,7 +24,7 @@ export const register: RequestHandler = async (req, res) => {
     const user = await createUser({ name, email, password });
     if (!user) {
         res.status(400).json({ error: "E-mail já cadastrado" });
-        return
+        return;
     }
 
     res.status(201).json({ error: null, user });
