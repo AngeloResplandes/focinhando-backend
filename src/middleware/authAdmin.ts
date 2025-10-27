@@ -9,17 +9,20 @@ export const authAdminMiddleware = async (
     const userId = (req as any).userId;
 
     if (!userId) {
-        return res.status(401).json({ error: "Usuário não autenticado." });
+        res.status(401).json({ error: "Usuário não autenticado." });
+        return;
     }
 
     const user = await getUserById(userId);
 
     if (!user) {
-        return res.status(404).json({ error: "Usuário não encontrado." });
+        res.status(404).json({ error: "Usuário não encontrado." });
+        return;
     }
 
     if (user.role !== "admin") {
-        return res.status(403).json({ error: "Acesso negado. Requer permissão de administrador." });
+        res.status(403).json({ error: "Acesso negado. Requer permissão de administrador." });
+        return;
     }
     next();
 };
