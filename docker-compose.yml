@@ -1,6 +1,6 @@
 services:
   database:
-    image: postgres:15
+    image: postgres:15-alpine
     container_name: focinhando-db
     ports:
       - "5432:5432"
@@ -10,7 +10,7 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
     volumes:
       - postgres_data:/var/lib/postgresql/data
-  backend:
+  api:
     build:
       context: .
     container_name: focinhando-api
