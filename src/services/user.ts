@@ -81,6 +81,11 @@ export const getComplementFromUserId = async (userId: string) => {
         where: { userId },
         select: {
             id: true,
+            user: {
+                select: {
+                    name: true
+                }
+            },
             img: true,
             phoneNumber: true,
             city: true,
