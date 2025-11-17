@@ -5,9 +5,27 @@ import helmet from "helmet";
 
 const server = express();
 
-server.use(helmet());
-server.use(cors());
+server.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    exposedHeaders: ['Content-Type'],
+    credentials: true
+}));
+
+server.use('/media', express.static('public/media', {
+    setHeaders: (res) => {
+        res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+        res.setHeader('Access-Control-Allow-Origin', '*');
+    }
+}));
+
 server.use(express.static("public"));
+
+server.use(helmet({
+    crossOriginResourcePolicy: { policy: "cross-origin" }
+}));
+
 server.use(express.json());
 
 server.use(routes);
