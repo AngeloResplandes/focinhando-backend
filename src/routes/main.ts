@@ -46,6 +46,7 @@ routes.use("/publication", publicationRouter);
 const userRouter = Router();
 userRouter.post("/register", userController.register);
 userRouter.post("/login", userController.login);
+userRouter.get("/", authMiddleware, userController.getUserData);
 userRouter.post("/complement", authMiddleware, userController.addComplement);
 userRouter.get("/complement", authMiddleware, userController.getComplement);
 userRouter.put("/complement", authMiddleware, userController.updateComplement);

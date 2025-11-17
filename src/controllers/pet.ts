@@ -9,6 +9,7 @@ import {
 import { getAbsoluteImageUrl } from "../utils/get-absolute-image-url";
 import { postPetsSchema } from "../schemas/post-pets-schema";
 import { Pet } from "../types/pet";
+import { isUrl } from "../utils/is-url";
 
 export const getPets: RequestHandler = async (req, res) => {
     const parseResult = getPetsSchema.safeParse(req.query);
@@ -21,7 +22,7 @@ export const getPets: RequestHandler = async (req, res) => {
     const pets = await getAllPets(filters);
     const petsWithAbsoluteUrl = pets.map((pet: Pet) => ({
         ...pet,
-        img: getAbsoluteImageUrl(pet.img)
+        img: isUrl(pet.img) ? pet.img : getAbsoluteImageUrl(pet.img)
     }))
 
     res.json({ error: null, pets: petsWithAbsoluteUrl });
@@ -42,7 +43,7 @@ export const postPets: RequestHandler = async (req, res) => {
         res.status(400).json({ error: "Ocorreu algum erro" });
         return;
     }
-    pet.img = getAbsoluteImageUrl(`media/pets/${pet.img}`);
+    pet.img = isUrl(pet.img) ? pet.img : getAbsoluteImageUrl(`media/pets/${pet.img}`);
 
     res.json({ error: null, pet });
 }
@@ -57,7 +58,7 @@ export const updatePet: RequestHandler = async (req, res) => {
     }
 
     const updatedPet = await updatePetFromId(id, parseResult.data);
-    updatedPet.img = getAbsoluteImageUrl(`media/pets/${updatedPet.img}`);
+    updatedPet.img = isUrl(updatedPet.img) ? updatedPet.img : getAbsoluteImageUrl(`media/pets/${updatedPet.img}`);
 
     if (!updatePet) {
         res.status(404).json({ error: "Pet não encontrado" });

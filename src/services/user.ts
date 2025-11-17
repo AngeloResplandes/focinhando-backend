@@ -65,6 +65,22 @@ export const getUserById = async (id: string) => {
     return user;
 };
 
+export const getUser = async (userId: string) => {
+    const user = await prisma.user.findUnique({
+        where: { id: userId },
+        select: {
+            id: true,
+            name: true,
+            email: true,
+            role: true,
+            createdAt: true,
+            updatedAt: true
+        }
+    });
+
+    return user;
+};
+
 export const createComplement = async (userId: string, complement: Complement) => {
     return await prisma.userComplement.create({
         data: {
