@@ -44,7 +44,7 @@ export const postPets: RequestHandler = async (req, res) => {
         res.status(400).json({ error: "Ocorreu algum erro" });
         return;
     }
-    pet.img = getAbsoluteImageUrlPets(`${pet.img}`);
+    pet.img = getAbsoluteImageUrlPets(pet.img);
 
     res.json({ error: null, pet });
 }
@@ -59,7 +59,7 @@ export const updatePet: RequestHandler = async (req, res) => {
     }
 
     const updatedPet = await updatePetFromId(id, parseResult.data);
-    updatedPet.img = getAbsoluteImageUrlPets(`${updatedPet.img}`);
+    updatedPet.img = getAbsoluteImageUrlPets(updatedPet.img);
 
     if (!updatePet) {
         res.status(404).json({ error: "Pet não encontrado" });
@@ -108,7 +108,7 @@ export const postUserPet: RequestHandler = async (req, res) => {
         res.status(400).json({ error: "Ocorreu algum erro ao cadastrar o pet" });
         return;
     }
-    pet.img = getAbsoluteImageUrlPets(`${pet.img}`);
+    pet.img = getAbsoluteImageUrlPets(pet.img);
 
     res.json({ error: null, pet });
 }

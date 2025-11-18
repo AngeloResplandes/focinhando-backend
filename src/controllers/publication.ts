@@ -36,7 +36,7 @@ export const postPublication: RequestHandler = async (req, res) => {
         res.status(400).json({ error: "Ocorreu algum erro" });
         return;
     }
-    publication.img = getAbsoluteImageUrlPublications(`${publication.img}`);
+    publication.img = getAbsoluteImageUrlPublications(publication.img);
 
     res.status(201).json({ error: null, publication });
 }
@@ -50,7 +50,7 @@ export const putPublication: RequestHandler = async (req, res) => {
     }
 
     const updated = await updatePublicationFromId(id, parseResult.data);
-    updated.img = getAbsoluteImageUrlPublications(`${updated.img}`);
+    updated.img = getAbsoluteImageUrlPublications(updated.img);
     if (!updated) {
         res.status(404).json({ error: "Publicação não encontrada" });
         return;
