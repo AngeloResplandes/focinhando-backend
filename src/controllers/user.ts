@@ -6,7 +6,8 @@ import {
     getComplementFromUserId,
     logUser,
     updateComplementFromUserId,
-    deleteUserFromUserId
+    deleteUserFromUserId,
+    getUserData
 } from "../services/user";
 import { loginSchema } from "../schemas/login-schema";
 import { addComplementSchema } from "../schemas/add-complement-schema";
@@ -118,4 +119,20 @@ export const deleteUser: RequestHandler = async (req, res) => {
     }
 
     res.status(200).json({ error: null, message: "Usuário deletado" });
+}
+
+export const getUsers: RequestHandler = async (req, res) => {
+    const userId = (req as any).userId;
+    if (!userId) {
+        res.status(401).json({ error: "Acesso negado" });
+        return;
+    }
+
+    const user = await getUserData(userId);
+    if (!user) {
+        res.status(404).json({ error: "Usuário não encontrado" });
+        return;
+    }
+
+    res.json({ error: null, user });
 }

@@ -122,3 +122,19 @@ export const deleteUserFromUserId = async (userId: string) => {
     await prisma.user.delete({ where: { id: userId } });
     return true;
 };
+
+export const getUserData = async (userId: string) => {
+    const user = await prisma.user.findUnique({
+        where: { id: userId },
+        select: {
+            id: true,
+            name: true,
+            email: true,
+            role: true,
+            createdAt: true,
+            updatedAt: true
+        }
+    });
+
+    return user;
+};
