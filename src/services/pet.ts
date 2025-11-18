@@ -19,13 +19,27 @@ export const getAllPets = async (filters: PetFilters) => {
             weight: true,
             createdAt: true,
             updatedAt: true,
-            userComplementId: true
+            userComplementId: true,
+            userComplement: {
+                select: {
+                    phoneNumber: true,
+                    user: {
+                        select: {
+                            name: true,
+                            email: true
+                        }
+                    }
+                }
+            }
         }
     });
 
-    return pets.map((pet: Pet) => ({
+    return pets.map((pet: any) => ({
         ...pet,
-        img: `${pet.img}`
+        img: `${pet.img}`,
+        userName: pet.userComplement?.user?.name,
+        phoneNumber: pet.userComplement?.phoneNumber,
+        email: pet.userComplement?.user?.email
     }));
 }
 
