@@ -16,7 +16,7 @@ export const getAllPublications = async () => {
 
     return publications.map((publication: Publication) => ({
         ...publication,
-        img: `media/publications/${publication.img}`
+        img: `${publication.img}`
     }));
 }
 

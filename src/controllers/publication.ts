@@ -5,7 +5,7 @@ import {
     updatePublicationFromId,
     deletePublicationFromId
 } from "../services/publication";
-import { getAbsoluteImageUrl } from "../utils/get-absolute-image-url";
+import { getAbsoluteImageUrlPublications } from "../utils/get-absolute-image-url";
 import { publicationSchema } from "../schemas/publication-schema";
 import { Publication } from "../types/publication";
 
@@ -18,7 +18,7 @@ export const getPublications: RequestHandler = async (req, res) => {
 
     const publicationsWithAbsoluteUrl = publications.map((publication: Publication) => ({
         ...publication,
-        img: getAbsoluteImageUrl(publication.img)
+        img: getAbsoluteImageUrlPublications(publication.img)
     }))
 
     res.json({ error: null, publications: publicationsWithAbsoluteUrl })
@@ -36,7 +36,7 @@ export const postPublication: RequestHandler = async (req, res) => {
         res.status(400).json({ error: "Ocorreu algum erro" });
         return;
     }
-    publication.img = getAbsoluteImageUrl(`media/publications/${publication.img}`);
+    publication.img = getAbsoluteImageUrlPublications(`${publication.img}`);
 
     res.status(201).json({ error: null, publication });
 }
@@ -50,7 +50,7 @@ export const putPublication: RequestHandler = async (req, res) => {
     }
 
     const updated = await updatePublicationFromId(id, parseResult.data);
-    updated.img = getAbsoluteImageUrl(`media/publications/${updated.img}`);
+    updated.img = getAbsoluteImageUrlPublications(`${updated.img}`);
     if (!updated) {
         res.status(404).json({ error: "Publicação não encontrada" });
         return;

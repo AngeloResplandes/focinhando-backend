@@ -6,9 +6,11 @@ import {
     getAllPets,
     updatePetFromId
 } from "../services/pet";
-import { getAbsoluteImageUrl } from "../utils/get-absolute-image-url";
+import { getAbsoluteImageUrlPets } from "../utils/get-absolute-image-url";
 import { postPetsSchema } from "../schemas/post-pets-schema";
+import { postUserPetSchema } from "../schemas/post-user-pet-schema";
 import { Pet } from "../types/pet";
+import { getComplementFromUserId } from "../services/user";
 
 export const getPets: RequestHandler = async (req, res) => {
     const parseResult = getPetsSchema.safeParse(req.query);
@@ -21,7 +23,7 @@ export const getPets: RequestHandler = async (req, res) => {
     const pets = await getAllPets(filters);
     const petsWithAbsoluteUrl = pets.map((pet: Pet) => ({
         ...pet,
-        img: getAbsoluteImageUrl(pet.img)
+        img: getAbsoluteImageUrlPets(pet.img)
     }))
 
     res.json({ error: null, pets: petsWithAbsoluteUrl });
@@ -42,7 +44,7 @@ export const postPets: RequestHandler = async (req, res) => {
         res.status(400).json({ error: "Ocorreu algum erro" });
         return;
     }
-    pet.img = getAbsoluteImageUrl(`media/pets/${pet.img}`);
+    pet.img = getAbsoluteImageUrlPets(`${pet.img}`);
 
     res.json({ error: null, pet });
 }
@@ -57,7 +59,7 @@ export const updatePet: RequestHandler = async (req, res) => {
     }
 
     const updatedPet = await updatePetFromId(id, parseResult.data);
-    updatedPet.img = getAbsoluteImageUrl(`media/pets/${updatedPet.img}`);
+    updatedPet.img = getAbsoluteImageUrlPets(`${updatedPet.img}`);
 
     if (!updatePet) {
         res.status(404).json({ error: "Pet não encontrado" });
@@ -77,4 +79,36 @@ export const deletePet: RequestHandler = async (req, res) => {
     }
 
     res.json({ error: null, message: "Pet removido com sucesso" });
+}
+
+export const postUserPet: RequestHandler = async (req, res) => {
+    const parseResult = postUserPetSchema.safeParse(req.body);
+    if (!parseResult.success) {
+        res.status(400).json({ error: "Dados inválidos" });
+        return;
+    }
+
+    const userId = (req as any).userId;
+    if (!userId) {
+        res.status(401).json({ error: "Usuário não autenticado" });
+        return;
+    }
+
+    const userComplement = await getComplementFromUserId(userId);
+    if (!userComplement) {
+        res.status(400).json({ error: "Usuário não possui perfil completo. Complete seu perfil antes de cadastrar um pet." });
+        return;
+    }
+
+    const pet = await createPet(
+        userComplement.id,
+        parseResult.data
+    );
+    if (!pet) {
+        res.status(400).json({ error: "Ocorreu algum erro ao cadastrar o pet" });
+        return;
+    }
+    pet.img = getAbsoluteImageUrlPets(`${pet.img}`);
+
+    res.json({ error: null, pet });
 }

@@ -31,6 +31,7 @@ routes.use("/contact", contactRouter);
 
 const petRouter = Router();
 petRouter.post("/register", ...adminOnly, petController.postPets);
+petRouter.post("/user", authMiddleware, petController.postUserPet);
 petRouter.get("/", petController.getPets);
 petRouter.put("/:id", ...adminOnly, petController.updatePet);
 petRouter.delete("/:id", ...adminOnly, petController.deletePet);
