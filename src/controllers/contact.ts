@@ -20,7 +20,7 @@ export const register: RequestHandler = async (req, res) => {
         message
     });
     if (!contact) {
-        res.status(400).json({ error: "E-mail já cadastrado" });
+        res.status(400).json({ error: "Erro ao criar contato" });
         return
     }
 

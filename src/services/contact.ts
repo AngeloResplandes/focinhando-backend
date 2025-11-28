@@ -4,9 +4,6 @@ import { Contact } from "../types/contact";
 export const createContact = async (data: Contact) => {
     const { fullName, email, phoneNumber, subject, message } = data;
 
-    const existing = await prisma.contact.findFirst({ where: { email } });
-    if (existing) return null;
-
     const contact = await prisma.contact.create({
         data: {
             fullName,
